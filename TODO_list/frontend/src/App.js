@@ -1,7 +1,8 @@
-import React from 'react'
+import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import UserList from "./components/User";
+import axios from 'axios';
 
 class App extends React.Component {
     constructor(props) {
@@ -12,26 +13,16 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        const users = [
-            {
-                "username": "admin",
-                "first_name": "",
-                "last_name": "",
-                "email": "admin@todo.local"
-            },
-            {
-                "username": "test1",
-                "first_name": "test",
-                "last_name": "testor",
-                "email": "test1@todo.local"
-            }
-        ]
-        this.setState(
-            {
-                'users': users
-            }
-        )
+        axios.get('http://localhost:8080/api/authapp/').then(response => {
+            const users = response.data
+                this.setState(
+                    {
+                        'users': users
+                    }
+                )
+        }).catch(error => console.log(error))
     }
+
 
     render() {
         return (
