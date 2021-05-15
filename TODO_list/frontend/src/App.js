@@ -1,8 +1,7 @@
 import React from 'react';
-import logo from './logo.svg';
+import axios from 'axios';
 import './App.css';
 import UserList from "./components/User";
-import axios from 'axios';
 
 class App extends React.Component {
     constructor(props) {
