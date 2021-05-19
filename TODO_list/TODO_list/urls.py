@@ -17,9 +17,11 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from authapp.views import UserModelViewSet
+from pjapp.views import ProjectModelViewSet, TODOModelViewSet
 
 router = DefaultRouter()
 router.register('authapp', UserModelViewSet)
+router.register('pjapp', ProjectModelViewSet, TODOModelViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
