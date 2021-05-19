@@ -9,10 +9,10 @@ class Project(models.Model):
 
 
 class TODO(models.Model):
-    project = models.ForeignKey(Project, models.PROTECT)
+    project = models.OneToOneField(Project, on_delete=models.CASCADE)
     text = models.TextField(verbose_name='Текст заметки', max_length=512, blank=True)
     created = models.DateTimeField(verbose_name='Создана', auto_now_add=True)
     updated = models.DateTimeField(verbose_name='Изменена', auto_now=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, models.PROTECT, verbose_name='Пользователи')
     is_active = models.BooleanField(verbose_name='Активна', default=True)
 
