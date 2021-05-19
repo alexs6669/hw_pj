@@ -5,7 +5,7 @@ from authapp.models import User
 class Project(models.Model):
     name = models.CharField(verbose_name='Название проекта', max_length=32, unique=True)
     repo_link = models.URLField(verbose_name='Ссылка на репозиторий', blank=True)
-    users = models.ManyToManyField(User)
+    users = models.ManyToManyField(User, verbose_name='Пользователи')
 
 
 class TODO(models.Model):
