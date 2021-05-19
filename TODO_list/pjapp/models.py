@@ -1,3 +1,18 @@
 from django.db import models
+from authapp.models import User
 
-# Create your models here.
+
+class Project(models.Model):
+    name = models.CharField(verbose_name='Название проекта', max_length=32, unique=True)
+    repo_link = models.URLField(verbose_name='Ссылка на репозиторий', blank=True)
+    users = models.ManyToManyField(User)
+
+
+class TODO(models.Model):
+    project = models.ForeignKey(Project, models.PROTECT)
+    text = models.TextField(verbose_name='Текст заметки', max_length=512, blank=True)
+    created = models.DateTimeField(verbose_name='Создана', auto_now_add=True)
+    updated = models.DateTimeField(verbose_name='Изменена', auto_now=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    is_active = models.BooleanField(verbose_name='Активна', default=True)
+
