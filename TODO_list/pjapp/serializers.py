@@ -2,13 +2,13 @@ from rest_framework.serializers import HyperlinkedModelSerializer, ModelSerializ
 from pjapp.models import Project, TODO
 
 
-class ProjectModelSerializer(ModelSerializer):
+class ProjectModelSerializer(HyperlinkedModelSerializer):
     class Meta:
         model = Project
         fields = '__all__'
 
 
-class TODOModelSerializer(ModelSerializer):
+class TODOModelSerializer(HyperlinkedModelSerializer):
     class Meta:
         model = TODO
         fields = '__all__'
