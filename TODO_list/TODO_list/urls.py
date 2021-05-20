@@ -21,8 +21,8 @@ from pjapp.views import ProjectModelViewSet, TODOModelViewSet
 
 router = DefaultRouter()
 router.register('authapp', UserModelViewSet)
-router.register('pjapp', ProjectModelViewSet)
-router.register('pjapp', TODOModelViewSet)
+router.register('pjapp/projects', ProjectModelViewSet)
+router.register('pjapp/todo', TODOModelViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
