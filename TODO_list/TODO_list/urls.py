@@ -38,12 +38,11 @@ urlpatterns = [
     path('projects/<int:pk>/update/', ProjectUpdateView.as_view()),
     path('projects/<int:pk>/delete/', ProjectDeleteView.as_view()),
 
-    path('notes/list', NoteListView.as_view()),
+    path('notes/list/', NoteListView.as_view()),
     path('notes/create/', NoteCreateView.as_view()),
     path('notes/<int:pk>/', NoteDetailView.as_view()),
     path('notes/<int:pk>/update/', NoteUpdateView.as_view()),
     path('notes/<int:pk>/delete/', NoteDeleteView.as_view()),
-
 
     path('api-auth/', include('rest_framework.urls')),
 ]
