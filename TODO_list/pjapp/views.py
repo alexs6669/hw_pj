@@ -4,7 +4,6 @@ from rest_framework.response import Response
 from rest_framework.pagination import LimitOffsetPagination
 from django_filters import rest_framework as filters
 from rest_framework.viewsets import ModelViewSet
-
 from pjapp.models import Project, TODO
 from .serializers import *
 
@@ -17,11 +16,20 @@ class NoteLimitOffsetPagination(LimitOffsetPagination):
     default_limit = 2
 
 
+class ProjectFilterByName(filters.FilterSet):
+    name = filters.CharFilter(lookup_expr='contains')
+
+    class Meta:
+        model = Project
+        fields = ['name']
+
+
 class ProjectListView(ListAPIView):
     # renderer_classes = [JSONRenderer]
     queryset = Project.objects.all()
     serializer_class = ProjectModelSerializer
     pagination_class = ProjectLimitOffsetPagination
+    filterset_class = ProjectFilterByName
 
 
 class ProjectCreateView(CreateAPIView):
