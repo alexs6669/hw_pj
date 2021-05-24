@@ -2,6 +2,9 @@ from rest_framework.generics import *
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from rest_framework.pagination import LimitOffsetPagination
+from django_filters import rest_framework as filters
+from rest_framework.viewsets import ModelViewSet
+
 from pjapp.models import Project, TODO
 from .serializers import *
 
@@ -45,11 +48,20 @@ class ProjectDeleteView(DestroyAPIView):
     serializer_class = ProjectModelSerializer
 
 
+class NoteFilterByProject(filters.FilterSet):
+    project = filters.CharFilter(field_name='project_id')
+
+    class Meta:
+        model = TODO
+        fields = ['project']
+
+
 class NoteListView(ListAPIView):
     # renderer_classes = [JSONRenderer]
     queryset = TODO.objects.all()
     serializer_class = TODOModelSerializer
     pagination_class = NoteLimitOffsetPagination
+    filterset_class = NoteFilterByProject
 
 
 class NoteCreateView(CreateAPIView):
