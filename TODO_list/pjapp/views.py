@@ -1,15 +1,24 @@
 from rest_framework.generics import *
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
-
+from rest_framework.pagination import LimitOffsetPagination
 from pjapp.models import Project, TODO
 from .serializers import *
+
+
+class ProjectLimitOffsetPagination(LimitOffsetPagination):
+    default_limit = 1
+
+
+class NoteLimitOffsetPagination(LimitOffsetPagination):
+    default_limit = 2
 
 
 class ProjectListView(ListAPIView):
     # renderer_classes = [JSONRenderer]
     queryset = Project.objects.all()
     serializer_class = ProjectModelSerializer
+    pagination_class = ProjectLimitOffsetPagination
 
 
 class ProjectCreateView(CreateAPIView):
@@ -40,6 +49,7 @@ class NoteListView(ListAPIView):
     # renderer_classes = [JSONRenderer]
     queryset = TODO.objects.all()
     serializer_class = TODOModelSerializer
+    pagination_class = NoteLimitOffsetPagination
 
 
 class NoteCreateView(CreateAPIView):
@@ -75,4 +85,3 @@ class NoteDeleteView(DestroyAPIView):
         note.save()
 
         return Response(serializer.data)
-
