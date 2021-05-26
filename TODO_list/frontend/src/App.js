@@ -12,7 +12,7 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:8080/api/authapp/').then(response => {
+        axios.get('http://localhost:8080/users/list/').then(response => {
             const users = response.data
                 this.setState(
                     {
