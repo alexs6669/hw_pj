@@ -2,7 +2,7 @@ import React from 'react'
 
 const ProjectItem = ({project}) => {
     return (
-        <tr className='project_info'>
+        <tr className='info'>
             <td>{project.id}</td>
             <td>{project.name}</td>
             <td>{project.repo_link}</td>
@@ -13,7 +13,7 @@ const ProjectItem = ({project}) => {
 
 const ProjectList = ({projects}) => {
     return (
-        <table className='project_table'>
+        <table className='table'>
             <th>Id</th>
             <th>Name</th>
             <th>Repo link</th>

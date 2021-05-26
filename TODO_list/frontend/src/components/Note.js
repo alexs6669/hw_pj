@@ -2,7 +2,7 @@ import React from 'react'
 
 const NoteItem = ({note}) => {
     return (
-        <tr className='note_info'>
+        <tr className='info'>
             <td>{note.id}</td>
             <td>{note.is_active}</td>
             <td>{note.project}</td>
@@ -14,7 +14,7 @@ const NoteItem = ({note}) => {
 
 const NoteList = ({notes}) => {
     return (
-        <table className='note_table'>
+        <table className='table'>
             <th>Id</th>
             <th>Active</th>
             <th>Project</th>
