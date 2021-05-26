@@ -14,9 +14,9 @@ const UserItem = ({user}) => {
 const UserList = ({users}) => {
     return (
         <table className='table'>
-            <th>Username</th>
-            <th>First Name</th>
-            <th>Last Name</th>
+            <th>%username%</th>
+            <th>Имя</th>
+            <th>Фамилия</th>
             <th>Email</th>
             {users.map((user) => <UserItem user={user}/>)}
         </table>

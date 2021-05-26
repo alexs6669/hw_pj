@@ -3,11 +3,12 @@ import React from 'react'
 const NoteItem = ({note}) => {
     return (
         <tr className='info'>
-            <td>{note.id}</td>
-            <td>{note.is_active}</td>
+            <td>{note.is_active.toString()}</td>
             <td>{note.project}</td>
+            <td>{note.title}</td>
             <td>{note.user}</td>
-            <td>{note.text}</td>
+            <td>{note.created}</td>
+            <td>{note.updated}</td>
         </tr>
     )
 }
@@ -15,11 +16,12 @@ const NoteItem = ({note}) => {
 const NoteList = ({notes}) => {
     return (
         <table className='table'>
-            <th>Id</th>
-            <th>Active</th>
-            <th>Project</th>
-            <th>User</th>
-            <th>Text</th>
+            <th>Aктивна</th>
+            <th>Проект</th>
+            <th>Заголовок</th>
+            <th>Пользователь</th>
+            <th>Создана</th>
+            <th>Обновлена</th>
             {notes.map((note) => <NoteItem note={note}/>)}
         </table>
     )
