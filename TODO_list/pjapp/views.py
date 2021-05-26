@@ -24,6 +24,14 @@ class ProjectFilterByName(filters.FilterSet):
         fields = ['name']
 
 
+class NoteFilterByProject(filters.FilterSet):
+    project = filters.CharFilter(field_name='project_id')
+
+    class Meta:
+        model = TODO
+        fields = ['project']
+
+
 class ProjectListView(ListAPIView):
     # renderer_classes = [JSONRenderer]
     queryset = Project.objects.all()
@@ -54,14 +62,6 @@ class ProjectDeleteView(DestroyAPIView):
     # renderer_classes = [JSONRenderer]
     queryset = Project.objects.all()
     serializer_class = ProjectModelSerializer
-
-
-class NoteFilterByProject(filters.FilterSet):
-    project = filters.CharFilter(field_name='project_id')
-
-    class Meta:
-        model = TODO
-        fields = ['project']
 
 
 class NoteListView(ListAPIView):
