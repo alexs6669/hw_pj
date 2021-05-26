@@ -2,12 +2,16 @@ import React from 'react';
 import axios from 'axios';
 import './App.css';
 import UserList from "./components/User";
+import ProjectList from "./components/Project";
+import NoteList from "./components/Note";
 
 class App extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            'users': []
+            'users': [],
+            'projects': [],
+            'notes': []
         }
     }
 
@@ -21,6 +25,7 @@ class App extends React.Component {
                 )
         }).catch(error => console.log(error))
     }
+
 
 
     render() {
