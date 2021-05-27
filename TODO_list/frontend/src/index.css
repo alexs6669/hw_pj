@@ -15,8 +15,9 @@ code {
 .header {
     background-color: #9370DB;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
+    justify-content: center;
     font-family: cursive;
 }
 
