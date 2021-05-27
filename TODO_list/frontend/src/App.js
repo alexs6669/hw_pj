@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import './App.css';
-import {HashRouter, BrowserRouter, Route, Redirect, Switch, Link} from 'react-router-dom';
+import {BrowserRouter, Route, Redirect, Switch, Link} from 'react-router-dom';
 import UserList from "./components/User";
 import ProjectList from "./components/Project";
 import NoteList from "./components/Note";
@@ -53,11 +53,10 @@ class App extends React.Component {
         }).catch(error => console.log(error))
     }
 
-
     render() {
         return (
             <div className='App-content'>
-                <HashRouter>
+                <BrowserRouter>
                     <nav className='menu'>
                         <ul className='menu-ul'>
                             <li className='menu-li'>
@@ -79,7 +78,7 @@ class App extends React.Component {
                         <Redirect from='/' to='users/list'/>
                         <Route component={NotFound404}/>
                     </Switch>
-                </HashRouter>
+                </BrowserRouter>
             </div>
         )
     }
