@@ -5,7 +5,15 @@ import {HashRouter, BrowserRouter, Route, Redirect, Switch, Link} from 'react-ro
 import UserList from "./components/User";
 import ProjectList from "./components/Project";
 import NoteList from "./components/Note";
-import UserPage from "./components/UserPage";
+
+
+const NotFound404 = ({location}) => {
+    return (
+        <div>
+            <h1>Страница по адресу '{location.pathname}' не найдена</h1>
+        </div>
+    )
+}
 
 class App extends React.Component {
     constructor(props) {
@@ -16,6 +24,7 @@ class App extends React.Component {
             'notes': []
         }
     }
+
 
     componentDidMount() {
         axios.get('http://localhost:8080/users/list/').then(response => {
@@ -67,6 +76,8 @@ class App extends React.Component {
                         <Route exact path='/projects/list'
                                component={() => <ProjectList projects={this.state.projects}/>}/>
                         <Route exact path='/notes/list' component={() => <NoteList notes={this.state.notes}/>}/>
+                        <Redirect from='/' to='users/list'/>
+                        <Route component={NotFound404}/>
                     </Switch>
                 </HashRouter>
             </div>

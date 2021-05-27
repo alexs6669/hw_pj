@@ -3,7 +3,7 @@ import React from 'react'
 const NoteItem = ({note}) => {
     return (
         <tr className='info'>
-            <td>{note.is_active.toString()}</td>
+            <td>{note.is_active ? 'Активна' : 'Не активна'}</td>
             <td>{note.project}</td>
             <td>{note.title}</td>
             <td>{note.user}</td>
@@ -16,7 +16,7 @@ const NoteItem = ({note}) => {
 const NoteList = ({notes}) => {
     return (
         <table className='table'>
-            <th>Aктивна</th>
+            <th>Aктивность</th>
             <th>Проект</th>
             <th>Заголовок</th>
             <th>Пользователь</th>
