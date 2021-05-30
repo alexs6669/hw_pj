@@ -33,13 +33,24 @@ class NoteFilterByProject(filters.FilterSet):
         fields = ['project']
 
 
+class ProjectListViewSet(ModelViewSet):
+    queryset = Project.objects.all()
+    serializer_class = ProjectModelSerializer
+    permission_classes = [AllowAny]
+
+
+class NoteListViewSet(ModelViewSet):
+    queryset = TODO.objects.all()
+    serializer_class = TODOModelSerializer
+    permission_classes = [AllowAny]
+
+
 class ProjectListView(ListAPIView):
     # renderer_classes = [JSONRenderer]
     # pagination_class = ProjectLimitOffsetPagination
     queryset = Project.objects.all()
     serializer_class = ProjectModelSerializer
     filterset_class = ProjectFilterByName
-    permission_classes = [AllowAny]
 
 
 class ProjectCreateView(CreateAPIView):
