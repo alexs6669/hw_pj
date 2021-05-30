@@ -15,17 +15,34 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from authapp.views import *
+from pjapp.views import *
 from rest_framework.routers import DefaultRouter
-from authapp.views import UserModelViewSet
-from pjapp.views import ProjectModelViewSet, TODOModelViewSet
 
-router = DefaultRouter()
-router.register('authapp', UserModelViewSet)
-router.register('pjapp/projects', ProjectModelViewSet)
-router.register('pjapp/todo', TODOModelViewSet)
+# router = DefaultRouter()
+# router.register('projects', ProjectModelViewSet)
+# router.register('todo', TODOModelViewSet)
+# router.register('users', UserModelViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # path('api/', include(router.urls)),
+
+    path('users/list/', UserListView.as_view()),
+    path('users/<int:pk>/', UserDetailView.as_view()),
+    path('users/<int:pk>/update/', UserUpdateView.as_view()),
+
+    path('projects/list/', ProjectListView.as_view()),
+    path('projects/create/', ProjectCreateView.as_view()),
+    path('projects/<int:pk>/', ProjectDetailView.as_view()),
+    path('projects/<int:pk>/update/', ProjectUpdateView.as_view()),
+    path('projects/<int:pk>/delete/', ProjectDeleteView.as_view()),
+
+    path('notes/list/', NoteListView.as_view()),
+    path('notes/create/', NoteCreateView.as_view()),
+    path('notes/<int:pk>/', NoteDetailView.as_view()),
+    path('notes/<int:pk>/update/', NoteUpdateView.as_view()),
+    path('notes/<int:pk>/delete/', NoteDeleteView.as_view()),
+
     path('api-auth/', include('rest_framework.urls')),
-    path('api/', include(router.urls)),
 ]
