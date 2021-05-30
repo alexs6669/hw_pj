@@ -6,6 +6,7 @@ from django_filters import rest_framework as filters
 from rest_framework.viewsets import ModelViewSet
 from pjapp.models import Project, TODO
 from .serializers import *
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
 
 # class ProjectLimitOffsetPagination(LimitOffsetPagination):
@@ -34,10 +35,11 @@ class NoteFilterByProject(filters.FilterSet):
 
 class ProjectListView(ListAPIView):
     # renderer_classes = [JSONRenderer]
+    # pagination_class = ProjectLimitOffsetPagination
     queryset = Project.objects.all()
     serializer_class = ProjectModelSerializer
-    # pagination_class = ProjectLimitOffsetPagination
     filterset_class = ProjectFilterByName
+    permission_classes = [AllowAny]
 
 
 class ProjectCreateView(CreateAPIView):
@@ -66,10 +68,11 @@ class ProjectDeleteView(DestroyAPIView):
 
 class NoteListView(ListAPIView):
     # renderer_classes = [JSONRenderer]
+    # pagination_class = NoteLimitOffsetPagination
     queryset = TODO.objects.all()
     serializer_class = TODOModelSerializer
-    # pagination_class = NoteLimitOffsetPagination
     filterset_class = NoteFilterByProject
+    permission_classes = [AllowAny]
 
 
 class NoteCreateView(CreateAPIView):

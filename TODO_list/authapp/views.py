@@ -3,6 +3,7 @@ from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.renderers import JSONRenderer
 from authapp.models import User
 from .serializers import UserModelSerializer
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
 
 # class UserLimitOffsetPagination(LimitOffsetPagination):
@@ -11,9 +12,10 @@ from .serializers import UserModelSerializer
 
 class UserListView(ListAPIView):
     # renderer_classes = [JSONRenderer]
+    # pagination_class = UserLimitOffsetPagination
     queryset = User.objects.all()
     serializer_class = UserModelSerializer
-    # pagination_class = UserLimitOffsetPagination
+    permission_classes = [AllowAny]
 
 
 class UserDetailView(RetrieveAPIView):
