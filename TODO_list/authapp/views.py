@@ -1,8 +1,9 @@
+from rest_framework.authtoken.serializers import AuthTokenSerializer
 from rest_framework.generics import *
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.renderers import JSONRenderer
+from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
-
 from authapp.models import User
 from .serializers import UserModelSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -10,6 +11,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 
 # class UserLimitOffsetPagination(LimitOffsetPagination):
 #     default_limit = 3
+
 
 class UserListViewSet(ModelViewSet):
     queryset = User.objects.all()
