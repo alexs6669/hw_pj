@@ -36,13 +36,13 @@ class NoteFilterByProject(filters.FilterSet):
 class ProjectListViewSet(ModelViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectModelSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
 
 class NoteListViewSet(ModelViewSet):
     queryset = TODO.objects.all()
     serializer_class = TODOModelSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
 
 class ProjectListView(ListAPIView):
