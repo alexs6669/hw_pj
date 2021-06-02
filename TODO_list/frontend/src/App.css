@@ -24,6 +24,18 @@
     color: white;
 }
 
+.logout {
+    display: block;
+    width: 100%;
+    border: none;
+    /* background-color: #4CAF50; */
+    background-color: #5f73e9;
+    padding: 14px 28px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+}
+
 .login {
     display: flex;
     flex-direction: column;

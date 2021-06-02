@@ -30,12 +30,12 @@ class App extends React.Component {
     set_token(token) {
         const cookies = new Cookies()
         cookies.set('token', token)
-        this.setState({'token': token})
+        this.setState({'token': token}, () => this.load_data())
     }
 
 
     is_authenticated() {
-        return this.state.token != ''
+        return this.state.token !== ''
     }
 
     logout() {
@@ -45,33 +45,52 @@ class App extends React.Component {
     get_token_from_storage() {
         const cookies = new Cookies()
         const token = cookies.get('token')
-        this.setState({'token': token})
+        this.setState({'token': token}, () => this.load_data())
     }
 
     get_token(username, password) {
         axios.post('http://localhost:8080/api-token-auth/', {username: username, password: password}).then(response => {
-            console.log(response.data)
+            this.set_token(response.data['token'])
         }).catch(error => alert('Неверный логин и пароль!'))
     }
 
+    get_headers() {
+        let headers = {
+            'Content-type': 'application/json'
+        }
+        if (this.is_authenticated()) {
+            headers['Authorization'] = 'Token ' + this.state.token
+        }
+        return headers
+    }
+
     load_data() {
-        axios.get('http://localhost:8080/api/users/').then(response => {
+        const headers = this.get_headers()
+        axios.get('http://localhost:8080/api/users/', {headers}).then(response => {
             this.setState({users: response.data})
-        }).catch(error => console.log(error))
+        }).catch(error => {
+            console.log(error)
+            this.setState({'users': []})
+        })
 
-        axios.get('http://localhost:8080/api/projects/').then(response => {
+        axios.get('http://localhost:8080/api/projects/', {headers}).then(response => {
             this.setState({projects: response.data})
-        }).catch(error => console.log(error))
+        }).catch(error => {
+            console.log(error)
+            this.setState({'projects': []})
+        })
 
-        axios.get('http://localhost:8080/api/notes/').then(response => {
+        axios.get('http://localhost:8080/api/notes/', {headers}).then(response => {
             this.setState({notes: response.data})
-        }).catch(error => console.log(error))
+        }).catch(error => {
+            console.log(error)
+            this.setState({'notes': []})
+        })
 
     }
 
     componentDidMount() {
         this.get_token_from_storage()
-        this.load_data()
     }
 
     render() {
@@ -81,7 +100,8 @@ class App extends React.Component {
                     <nav className='menu'>
                         <ul className='menu-ul'>
                             <li className='menu-li'>
-                                {this.is_authenticated() ? <button onClick={() => this.logout()}>Logout</button> :
+                                {this.is_authenticated() ?
+                                    <Link className='menu-link' onClick={() => this.logout()}>Logout</Link> :
                                     <Link className='menu-link' to='/login'>Login</Link>}
                             </li>
                             <li className='menu-li'>
