@@ -8,12 +8,12 @@ from pjapp.models import Project, TODO
 from .serializers import *
 
 
-class ProjectLimitOffsetPagination(LimitOffsetPagination):
-    default_limit = 1
-
-
-class NoteLimitOffsetPagination(LimitOffsetPagination):
-    default_limit = 2
+# class ProjectLimitOffsetPagination(LimitOffsetPagination):
+#     default_limit = 1
+#
+#
+# class NoteLimitOffsetPagination(LimitOffsetPagination):
+#     default_limit = 2
 
 
 class ProjectFilterByName(filters.FilterSet):
@@ -24,11 +24,19 @@ class ProjectFilterByName(filters.FilterSet):
         fields = ['name']
 
 
+class NoteFilterByProject(filters.FilterSet):
+    project = filters.CharFilter(field_name='project_id')
+
+    class Meta:
+        model = TODO
+        fields = ['project']
+
+
 class ProjectListView(ListAPIView):
     # renderer_classes = [JSONRenderer]
     queryset = Project.objects.all()
     serializer_class = ProjectModelSerializer
-    pagination_class = ProjectLimitOffsetPagination
+    # pagination_class = ProjectLimitOffsetPagination
     filterset_class = ProjectFilterByName
 
 
@@ -56,19 +64,11 @@ class ProjectDeleteView(DestroyAPIView):
     serializer_class = ProjectModelSerializer
 
 
-class NoteFilterByProject(filters.FilterSet):
-    project = filters.CharFilter(field_name='project_id')
-
-    class Meta:
-        model = TODO
-        fields = ['project']
-
-
 class NoteListView(ListAPIView):
     # renderer_classes = [JSONRenderer]
     queryset = TODO.objects.all()
     serializer_class = TODOModelSerializer
-    pagination_class = NoteLimitOffsetPagination
+    # pagination_class = NoteLimitOffsetPagination
     filterset_class = NoteFilterByProject
 
 

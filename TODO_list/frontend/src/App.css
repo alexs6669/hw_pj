@@ -13,30 +13,59 @@
     }
 }
 
-.App-header {
+.App-content {
     background-color: #282c34;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
     font-size: calc(10px + 2vmin);
     color: white;
 }
 
-.App-link {
-    color: #61dafb;
-}
 
-.user_table {
+
+.table {
     display: table;
     text-indent: 50px;
 }
 
-.user_info {
+.info {
     font-family: cursive;
     text-align: center;
 }
+
+.menu {
+
+}
+
+.menu-ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+
+}
+
+.menu-li {
+    float: left;
+}
+
+
+.menu-link {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+
+.menu-link:hover {
+    background-color: #61dafb;
+}
+
 
 @keyframes App-logo-spin {
     from {
