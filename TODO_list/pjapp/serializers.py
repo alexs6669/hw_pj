@@ -8,7 +8,7 @@ class ProjectModelSerializer(ModelSerializer):
 
     class Meta:
         model = Project
-        fields = ('name', 'repo_link', 'users',)
+        fields = ('id', 'name', 'repo_link', 'users',)
 
 
 class TODOModelSerializer(ModelSerializer):
@@ -17,4 +17,4 @@ class TODOModelSerializer(ModelSerializer):
 
     class Meta:
         model = TODO
-        fields = ('project', 'title', 'text', 'user', 'created', 'updated', 'is_active',)
+        fields = ('id', 'project', 'title', 'text', 'user', 'created', 'updated', 'is_active',)
