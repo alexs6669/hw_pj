@@ -104,6 +104,10 @@ class App extends React.Component {
                                     <Link className='menu-link' onClick={() => this.logout()}>Logout</Link> :
                                     <Link className='menu-link' to='/login'>Login</Link>}
                             </li>
+                        </ul>
+                    </nav>
+                    <nav className='menu'>
+                        <ul className='menu-ul'>
                             <li className='menu-li'>
                                 <Link className='menu-link' to='/users'>Users</Link>
                             </li>
