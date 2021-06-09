@@ -64,7 +64,8 @@ REST_FRAMEWORK = {
     ),
 
     'DEFAULT_VERSIONING_CLASS':
-        'rest_framework.versioning.QueryParameterVersioning',
+        # 'rest_framework.versioning.QueryParameterVersioning',
+        'rest_framework.versioning.AcceptHeaderVersioning',
 
     # 'DEFAULT_PAGINATION_CLASS':
     #     'rest_framework.pagination.PageNumberPagination',
