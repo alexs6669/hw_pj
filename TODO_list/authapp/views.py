@@ -18,7 +18,7 @@ class UserListViewSet(ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def get_serializer_class(self):
-        if self.request.version == '2.0':
+        if self.request.version == '0.2':
             return UserModelSerializerV2
         return UserModelSerializer
 
