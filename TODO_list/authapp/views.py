@@ -4,7 +4,7 @@ from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.renderers import JSONRenderer
 from rest_framework.viewsets import ModelViewSet
 from authapp.models import User
-from .serializers import UserModelSerializer
+from .serializers import UserModelSerializer, UserModelSerializerV2
 from rest_framework.permissions import IsAuthenticated, AllowAny
 
 
@@ -16,6 +16,11 @@ class UserListViewSet(ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserModelSerializer
     permission_classes = [IsAuthenticated]
+
+    def get_serializer_class(self):
+        if self.request.version == '2.0':
+            return UserModelSerializerV2
+        return UserModelSerializer
 
 
 class UserListView(ListAPIView):

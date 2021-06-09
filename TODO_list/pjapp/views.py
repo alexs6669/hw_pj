@@ -42,7 +42,7 @@ class ProjectListViewSet(ModelViewSet):
 class NoteListViewSet(ModelViewSet):
     queryset = TODO.objects.all()
     serializer_class = TODOModelSerializer
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
 
 class ProjectListView(ListAPIView):
