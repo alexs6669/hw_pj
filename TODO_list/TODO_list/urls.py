@@ -36,9 +36,9 @@ schema_view = get_schema_view(
 )
 
 router = DefaultRouter()
-router.register('users', UserListViewSet)
-router.register('projects', ProjectListViewSet)
-router.register('notes', NoteListViewSet)
+router.register('users', UserListViewSet, basename='Пользователи')
+router.register('projects', ProjectListViewSet, basename='Проекты')
+router.register('notes', NoteListViewSet, basename='Заметки')
 
 urlpatterns = [
     re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
