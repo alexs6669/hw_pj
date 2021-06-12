@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django_filters',
     'rest_framework.authtoken',
     'drf_yasg',
+    'graphene_django',
 
     'authapp',
     'pjapp',
@@ -65,11 +66,15 @@ REST_FRAMEWORK = {
 
     'DEFAULT_VERSIONING_CLASS':
         'rest_framework.versioning.QueryParameterVersioning',
-        # 'rest_framework.versioning.AcceptHeaderVersioning',
+    # 'rest_framework.versioning.AcceptHeaderVersioning',
 
     # 'DEFAULT_PAGINATION_CLASS':
     #     'rest_framework.pagination.PageNumberPagination',
     # 'PAGE_SIZE': 5
+}
+
+GRAPHENE = {
+    'SCHEMA': 'TODO_list.schema.schema'
 }
 
 MIDDLEWARE = [
