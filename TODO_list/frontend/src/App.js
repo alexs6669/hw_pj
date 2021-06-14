@@ -56,7 +56,7 @@ class App extends React.Component {
 
     get_headers() {
         let headers = {
-            'Content-type': 'application/json'
+            'Content-type': 'application/json',
         }
         if (this.is_authenticated()) {
             headers['Authorization'] = 'Token ' + this.state.token
@@ -126,7 +126,7 @@ class App extends React.Component {
                         <Route exact path='/notes' component={() => <NoteList notes={this.state.notes}/>}/>
                         <Route exact path='/login' component={() => <LoginForm
                             get_token={(username, password) => this.get_token(username, password)}/>}/>
-                        <Redirect from='/' to='/users'/>
+                        <Redirect from='/' to='/login'/>
                         <Route component={NotFound404}/>
                     </Switch>
                 </BrowserRouter>
