@@ -39,8 +39,8 @@
 .form {
     display: flex;
     flex-direction: column;
-    width: 220px;
-    height: 155px;
+    width: 330px;
+    margin-bottom: 20px;
 
     -webkit-animation: login 1s ease-in-out;
     -moz-animation: login 1s ease-in-out;
@@ -50,7 +50,10 @@
 }
 
 .form label {
-    display: none;
+    display: flex;
+    justify-content: flex-start;
+    font: message-box;
+    margin-top: 10px;
 }
 
 .placeholder {
@@ -99,10 +102,10 @@
 }
 
 .form input[type='submit'], button[type='submit'] {
-    width: 100%;
+    width: 80%;
     height: 50px;
     margin-top: 7px;
-    margin-left: 12px;
+    margin-left: 45px;
     color: #fff;
     font-size: 18px;
     font-weight: bold;
@@ -159,6 +162,16 @@
     box-shadow: inset 0px 1px 0px #93a9e9;
 }
 
+.submit {
+    margin-top: 10px;
+}
+
+.form-textarea {
+    height: 150px;
+    width: 350px;
+    border-radius: 7px;
+}
+
 .table {
     display: table;
     text-indent: 15px;
@@ -197,6 +210,12 @@
 
 .menu-link:hover {
     background-color: #61dafb;
+}
+
+.list {
+    width: 345px;
+    height: 40px;
+    border-radius: 7px;
 }
 
 

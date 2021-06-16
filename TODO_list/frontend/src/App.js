@@ -7,6 +7,8 @@ import ProjectList from "./components/Project";
 import NoteList from "./components/Note";
 import LoginForm from './components/Auth.js'
 import Cookies from 'universal-cookie'
+import NoteForm from "./components/NoteForm";
+import ProjectForm from "./components/ProjectForm";
 
 const NotFound404 = ({location}) => {
     return (
@@ -64,38 +66,16 @@ class App extends React.Component {
         return headers
     }
 
-    createProject(id) {
-
-    }
-
-    editProject(id) {
-        let headers = this.get_headers()
-        axios.put('http://localhost:8080/api/projects/', {headers}).then(response => {
-            this.setState({projects: this.state.projects.filter((project) => project.id !== id)})
-        }).catch(error => console.log(error))
-    }
-
     deleteProject(id) {
         let headers = this.get_headers()
-        axios.delete('http://localhost:8080/api/projects/', {headers }).then(response => {
+        axios.delete(`http://localhost:8080/api/projects/${id}/`, {headers}).then(response => {
             this.setState({projects: this.state.projects.filter((project) => project.id !== id)})
-        }).catch(error => console.log(error))
-    }
-
-    createNote(id) {
-
-    }
-
-    editNote(id) {
-        let headers = this.get_headers()
-        axios.delete('http://localhost:8080/api/notes/', {headers}).then(response => {
-            this.setState({notes: this.state.notes.filter((note) => note.id !== id)})
         }).catch(error => console.log(error))
     }
 
     deleteNote(id) {
         let headers = this.get_headers()
-        axios.delete('http://localhost:8080/api/notes/', {headers}).then(response => {
+        axios.delete(`http://localhost:8080/api/notes/${id}/`, {headers}).then(response => {
             this.setState({notes: this.state.notes.filter((note) => note.id !== id)})
         }).catch(error => console.log(error))
     }
@@ -140,6 +120,12 @@ class App extends React.Component {
                                     <Link className='menu-link' onClick={() => this.logout()}>Logout</Link> :
                                     <Link className='menu-link' to='/login'>Login</Link>}
                             </li>
+                            <li className='menu-li'>
+                                <Link className='menu-link' to='projects/create'>Create project</Link>
+                            </li>
+                            <li className='menu-li'>
+                                <Link className='menu-link' to='notes/create'>Create note</Link>
+                            </li>
                         </ul>
                     </nav>
                     <nav className='menu'>
@@ -161,6 +147,8 @@ class App extends React.Component {
                                component={() => <ProjectList projects={this.state.projects}
                                                              editProject={(id) => this.editProject(id)}
                                                              deleteProject={(id) => this.deleteProject(id)}/>}/>
+                        <Route exact path='/projects/create' component={() => <ProjectForm/>}/>
+                        <Route exact path='/notes/create' component={() => <NoteForm/>}/>
                         <Route exact path='/notes'
                                component={() => <NoteList notes={this.state.notes}
                                                           editNote={(id) => this.editNote(id)}

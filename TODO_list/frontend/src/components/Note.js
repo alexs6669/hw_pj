@@ -13,9 +13,6 @@ const NoteItem = ({note, editNote, deleteNote}) => {
             <td>{note.created.toString()}</td>
             <td>{note.updated}</td>
             <td>
-                <button onClick={() => editNote(note.id)} type='submit'>Edit</button>
-            </td>
-            <td>
                 <button onClick={() => deleteNote(note.id)} type='submit'>Delete</button>
             </td>
         </tr>
@@ -25,16 +22,17 @@ const NoteItem = ({note, editNote, deleteNote}) => {
 const NoteList = ({notes, editNote, deleteNote}) => {
     return (
         <table className='table'>
-            <tr>
-                <th>Aктивность</th>
-                <th>Проект</th>
-                <th>Заголовок</th>
-                <th>Пользователь</th>
-                <th>Создана</th>
-                <th>Обновлена</th>
-                <th></th>
-                <th></th>
-            </tr>
+            <thead>
+                <tr>
+                    <th>Aктивность</th>
+                    <th>Проект</th>
+                    <th>Заголовок</th>
+                    <th>Пользователь</th>
+                    <th>Создана</th>
+                    <th>Обновлена</th>
+                    <th></th>
+                </tr>
+            </thead>
             {notes.map((note) => <NoteItem note={note} editNote={editNote} deleteNote={deleteNote}/>)}
         </table>
     )
