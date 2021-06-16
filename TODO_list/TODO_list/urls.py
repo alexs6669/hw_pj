@@ -42,7 +42,7 @@ router.register('projects', ProjectListViewSet, basename='Проекты')
 router.register('notes', NoteListViewSet, basename='Заметки')
 
 urlpatterns = [
-    re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
+    path('yaml/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     path('graphql/', GraphQLView.as_view(graphiql=True)),
@@ -51,20 +51,4 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls')),
     path('api-token-auth/', views.obtain_auth_token),
-
-    path('users/list/', UserListView.as_view(), name='Список пользователей'),
-    path('users/<int:pk>/', UserDetailView.as_view(), name='Данные пользователя'),
-    path('users/<int:pk>/update/', UserUpdateView.as_view(), name='Обновить данные пользователя'),
-
-    path('projects/list/', ProjectListView.as_view(), name='Список проектов'),
-    path('projects/create/', ProjectCreateView.as_view(), name='Создать проект'),
-    path('projects/<int:pk>/', ProjectDetailView.as_view(), name='Данные проекта'),
-    path('projects/<int:pk>/update/', ProjectUpdateView.as_view(), name='Обновить проект'),
-    path('projects/<int:pk>/delete/', ProjectDeleteView.as_view(), name='Удалить проект'),
-
-    path('notes/list/', NoteListView.as_view(), name='Список заметок'),
-    path('notes/create/', NoteCreateView.as_view(), name='Создать заметку'),
-    path('notes/<int:pk>/', NoteDetailView.as_view(), name='Заметка'),
-    path('notes/<int:pk>/update/', NoteUpdateView.as_view(), name='Обновить заметку'),
-    path('notes/<int:pk>/delete/', NoteDeleteView.as_view(), name='Удалить заметку'),
 ]

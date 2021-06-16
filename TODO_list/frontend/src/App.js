@@ -55,13 +55,49 @@ class App extends React.Component {
     }
 
     get_headers() {
-        let headers = {
+        const headers = {
             'Content-type': 'application/json',
         }
         if (this.is_authenticated()) {
             headers['Authorization'] = 'Token ' + this.state.token
         }
         return headers
+    }
+
+    createProject(id) {
+
+    }
+
+    editProject(id) {
+        let headers = this.get_headers()
+        axios.put('http://localhost:8080/api/projects/', {headers}).then(response => {
+            this.setState({projects: this.state.projects.filter((project) => project.id !== id)})
+        }).catch(error => console.log(error))
+    }
+
+    deleteProject(id) {
+        let headers = this.get_headers()
+        axios.delete('http://localhost:8080/api/projects/', {headers }).then(response => {
+            this.setState({projects: this.state.projects.filter((project) => project.id !== id)})
+        }).catch(error => console.log(error))
+    }
+
+    createNote(id) {
+
+    }
+
+    editNote(id) {
+        let headers = this.get_headers()
+        axios.delete('http://localhost:8080/api/notes/', {headers}).then(response => {
+            this.setState({notes: this.state.notes.filter((note) => note.id !== id)})
+        }).catch(error => console.log(error))
+    }
+
+    deleteNote(id) {
+        let headers = this.get_headers()
+        axios.delete('http://localhost:8080/api/notes/', {headers}).then(response => {
+            this.setState({notes: this.state.notes.filter((note) => note.id !== id)})
+        }).catch(error => console.log(error))
     }
 
     load_data() {
@@ -122,8 +158,13 @@ class App extends React.Component {
                     <Switch>
                         <Route exact path='/users' component={() => <UserList users={this.state.users}/>}/>
                         <Route exact path='/projects'
-                               component={() => <ProjectList projects={this.state.projects}/>}/>
-                        <Route exact path='/notes' component={() => <NoteList notes={this.state.notes}/>}/>
+                               component={() => <ProjectList projects={this.state.projects}
+                                                             editProject={(id) => this.editProject(id)}
+                                                             deleteProject={(id) => this.deleteProject(id)}/>}/>
+                        <Route exact path='/notes'
+                               component={() => <NoteList notes={this.state.notes}
+                                                          editNote={(id) => this.editNote(id)}
+                                                          deleteNote={(id) => this.deleteNote(id)}/>}/>
                         <Route exact path='/login' component={() => <LoginForm
                             get_token={(username, password) => this.get_token(username, password)}/>}/>
                         <Redirect from='/' to='/login'/>
