@@ -36,7 +36,7 @@ class ProjectForm extends React.Component {
                 </div>
                 <div>
                     <label for='users'>Users</label>
-                    <input className='list' type='list' name='users' value={this.state.user}
+                    <select className='select' type='select' name='users' value={this.state.user}
                            onChange={(event) => this.handleChange(event)}/>
                 </div>
                 <div>

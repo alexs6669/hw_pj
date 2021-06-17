@@ -120,12 +120,6 @@ class App extends React.Component {
                                     <Link className='menu-link' onClick={() => this.logout()}>Logout</Link> :
                                     <Link className='menu-link' to='/login'>Login</Link>}
                             </li>
-                            <li className='menu-li'>
-                                <Link className='menu-link' to='projects/create'>Create project</Link>
-                            </li>
-                            <li className='menu-li'>
-                                <Link className='menu-link' to='notes/create'>Create note</Link>
-                            </li>
                         </ul>
                     </nav>
                     <nav className='menu'>

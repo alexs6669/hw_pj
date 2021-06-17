@@ -1,6 +1,7 @@
 import React from 'react'
 import ActiveImage from './images/true.png'
 import NotActiveImage from './images/false.png'
+import {Link} from "react-router-dom";
 
 const NoteItem = ({note, editNote, deleteNote}) => {
     return (
@@ -21,8 +22,12 @@ const NoteItem = ({note, editNote, deleteNote}) => {
 
 const NoteList = ({notes, editNote, deleteNote}) => {
     return (
-        <table className='table'>
-            <thead>
+        <div>
+            <nav className='menu'>
+                <Link className='menu-link' to='/notes/create/'>Create Note</Link>
+            </nav>
+            <table className='table'>
+                <thead>
                 <tr>
                     <th>Aктивность</th>
                     <th>Проект</th>
@@ -32,9 +37,10 @@ const NoteList = ({notes, editNote, deleteNote}) => {
                     <th>Обновлена</th>
                     <th></th>
                 </tr>
-            </thead>
-            {notes.map((note) => <NoteItem note={note} editNote={editNote} deleteNote={deleteNote}/>)}
-        </table>
+                </thead>
+                {notes.map((note) => <NoteItem note={note} editNote={editNote} deleteNote={deleteNote}/>)}
+            </table>
+        </div>
     )
 }
 
