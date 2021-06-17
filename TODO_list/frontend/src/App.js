@@ -30,7 +30,7 @@ class App extends React.Component {
     }
 
     set_token(token) {
-        const cookies = new Cookies()
+        let cookies = new Cookies()
         cookies.set('token', token)
         this.setState({'token': token}, () => this.load_data())
     }
@@ -45,7 +45,7 @@ class App extends React.Component {
     }
 
     get_token_from_storage() {
-        const cookies = new Cookies()
+        let cookies = new Cookies()
         const token = cookies.get('token')
         this.setState({'token': token}, () => this.load_data())
     }
@@ -66,8 +66,15 @@ class App extends React.Component {
         return headers
     }
 
-    createProject(name, users) {
-
+    createProject(name, repo, users) {
+        let headers = this.get_headers()
+        const data = {name: name, repo: repo, users: users}
+        axios.post(`http://localhost:8080/api/projects/`, data, {headers}).then(response => {
+            let new_project = response.data
+            const users = this.state.users.filter((user) => user.id === new_project.user) [0]
+            new_project.users = users
+            this.setState({projects: [...this.state.projects, new_project]})
+        }).catch(error => console.log(error))
     }
 
     deleteProject(id) {
@@ -77,8 +84,17 @@ class App extends React.Component {
         }).catch(error => console.log(error))
     }
 
-    createNote(project, user) {
-
+    createNote(project, title, text, user) {
+        let headers = this.get_headers()
+        const data = {project: project, title: title, text: text, user: user}
+        axios.post(`http://localhost:8080/api/notes/`, data, {headers}).then(response => {
+            let new_note = response.data
+            const project = this.state.projects.filter((project) => project.id === new_note.project) [0]
+            const user = this.state.users.filter((user) => user.id === new_note.user) [0]
+            new_note.project = project
+            new_note.user = user
+            this.setState({notes: [...this.state.notes, new_note]})
+        }).catch(error => console.log(error))
     }
 
     deleteNote(id) {
@@ -149,8 +165,14 @@ class App extends React.Component {
                                component={() => <ProjectList projects={this.state.projects}
                                                              editProject={(id) => this.editProject(id)}
                                                              deleteProject={(id) => this.deleteProject(id)}/>}/>
-                        <Route exact path='/projects/create' component={() => <ProjectForm/>}/>
-                        <Route exact path='/notes/create' component={() => <NoteForm/>}/>
+                        <Route exact path='/projects/create'
+                               component={() => <ProjectForm
+                                   users={this.state.users} createProject={(name, repo, users) =>
+                                        this.createProject(name, repo, users)}/>}/>
+                        <Route exact path='/notes/create'
+                               component={() => <NoteForm projects={this.state.projects} users={this.state.users}
+                                   createNote={(project, title, text, user) =>
+                                       this.createNote(project, title, text, user)}/>}/>
                         <Route exact path='/notes'
                                component={() => <NoteList notes={this.state.notes}
                                                           editNote={(id) => this.editNote(id)}

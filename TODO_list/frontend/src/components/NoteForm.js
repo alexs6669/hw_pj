@@ -4,10 +4,10 @@ class NoteForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            project: [],
+            project: props.projects[0].id,
             title: '',
             text: '',
-            user: []
+            user: props.users[0].id
         }
     }
 
@@ -16,10 +16,7 @@ class NoteForm extends React.Component {
     }
 
     handleSubmit(event) {
-        console.log(this.state.project)
-        console.log(this.state.title)
-        console.log(this.state.text)
-        console.log(this.state.user)
+        this.props.createNote(this.state.project, this.state.title, this.state.text, this.state.user)
         event.preventDefault()
     }
 
@@ -29,7 +26,9 @@ class NoteForm extends React.Component {
                 <div>
                     <label for='project'>Project</label>
                     <select className='select' type='select' name='project' value={this.state.project}
-                           onChange={(event) => this.handleChange(event)}/>
+                            onChange={(event) => this.handleChange(event)}>{this.props.projects.map((project) =>
+                        <option value={project.id}>{project.name}</option>)}
+                    </select>
                 </div>
                 <div>
                     <label for='title'>Title</label>
@@ -44,7 +43,9 @@ class NoteForm extends React.Component {
                 <div>
                     <label for='user'>User</label>
                     <select className='select' type='select' name='user' value={this.state.user}
-                           onChange={(event) => this.handleChange(event)}/>
+                            onChange={(event) => this.handleChange(event)}>{this.props.users.map((user) =>
+                        <option value={user.id}>{user.username}</option>)}
+                    </select>
                 </div>
                 <div>
                     <input className='submit' type='submit' value='save'/>

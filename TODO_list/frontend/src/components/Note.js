@@ -20,7 +20,7 @@ const NoteItem = ({note, editNote, deleteNote}) => {
     )
 }
 
-const NoteList = ({notes, editNote, deleteNote}) => {
+const NoteList = ({notes, deleteNote}) => {
     return (
         <div>
             <nav className='menu'>
@@ -38,7 +38,7 @@ const NoteList = ({notes, editNote, deleteNote}) => {
                     <th></th>
                 </tr>
                 </thead>
-                {notes.map((note) => <NoteItem note={note} editNote={editNote} deleteNote={deleteNote}/>)}
+                {notes.map((note) => <NoteItem note={note} deleteNote={deleteNote}/>)}
             </table>
         </div>
     )

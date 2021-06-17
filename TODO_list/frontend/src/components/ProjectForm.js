@@ -6,7 +6,7 @@ class ProjectForm extends React.Component {
         this.state = {
             name: '',
             repo: '',
-            users: []
+            users: props.users[0].id
         }
     }
 
@@ -15,9 +15,7 @@ class ProjectForm extends React.Component {
     }
 
     handleSubmit(event) {
-        console.log(this.state.name)
-        console.log(this.state.repo)
-        console.log(this.state.users)
+        this.props.createProject(this.state.name, this.state.repo, this.state.users)
         event.preventDefault()
     }
 
@@ -36,8 +34,9 @@ class ProjectForm extends React.Component {
                 </div>
                 <div>
                     <label for='users'>Users</label>
-                    <select className='select' type='select' name='users' value={this.state.users}
-                           onChange={(event) => this.handleChange(event)}/>
+                    <select className='select' type='select' name='users'
+                            onChange={(event) => this.handleChange(event)}/>
+                    {this.props.users.map((user) => <option value={user.id}>{user.username}</option>)}
                 </div>
                 <div>
                     <input className='submit' type='submit' value='save'/>

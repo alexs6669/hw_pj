@@ -14,7 +14,7 @@ const ProjectItem = ({project, editProject, deleteProject}) => {
     )
 }
 
-const ProjectList = ({projects, editProject, deleteProject}) => {
+const ProjectList = ({projects, deleteProject}) => {
     return (
         <div>
             <nav className='menu'>
@@ -29,8 +29,7 @@ const ProjectList = ({projects, editProject, deleteProject}) => {
                     <th></th>
                 </tr>
                 </thead>
-                {projects.map((project) => <ProjectItem project={project} editProject={editProject}
-                                                        deleteProject={deleteProject}/>)}
+                {projects.map((project) => <ProjectItem project={project} deleteProject={deleteProject}/>)}
             </table>
         </div>
     )
