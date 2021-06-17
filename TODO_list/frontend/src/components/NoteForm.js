@@ -4,10 +4,10 @@ class NoteForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            project: '',
+            project: [],
             title: '',
             text: '',
-            user: ''
+            user: []
         }
     }
 
@@ -28,7 +28,7 @@ class NoteForm extends React.Component {
             <form className='form' onSubmit={(event) => this.handleSubmit(event)}>
                 <div>
                     <label for='project'>Project</label>
-                    <input type='text' name='project' value={this.state.project}
+                    <select className='select' type='select' name='project' value={this.state.project}
                            onChange={(event) => this.handleChange(event)}/>
                 </div>
                 <div>
@@ -43,7 +43,7 @@ class NoteForm extends React.Component {
                 </div>
                 <div>
                     <label for='user'>User</label>
-                    <input type='text' name='user' value={this.state.user}
+                    <select className='select' type='select' name='user' value={this.state.user}
                            onChange={(event) => this.handleChange(event)}/>
                 </div>
                 <div>

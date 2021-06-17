@@ -66,11 +66,19 @@ class App extends React.Component {
         return headers
     }
 
+    createProject(name, users) {
+
+    }
+
     deleteProject(id) {
         let headers = this.get_headers()
         axios.delete(`http://localhost:8080/api/projects/${id}/`, {headers}).then(response => {
             this.setState({projects: this.state.projects.filter((project) => project.id !== id)})
         }).catch(error => console.log(error))
+    }
+
+    createNote(project, user) {
+
     }
 
     deleteNote(id) {
