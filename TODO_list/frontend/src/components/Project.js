@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link} from "react-router-dom";
 
-const ProjectItem = ({project, editProject, deleteProject}) => {
+const ProjectItem = ({project, deleteProject}) => {
     return (
         <tr className='info'>
             <td>{project.name}</td>

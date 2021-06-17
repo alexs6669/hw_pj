@@ -66,13 +66,13 @@ class App extends React.Component {
         return headers
     }
 
-    createProject(name, repo, users) {
+    createProject(name, repo, user) {
         let headers = this.get_headers()
-        const data = {name: name, repo: repo, users: users}
+        const data = {name: name, repo: repo, user: user}
         axios.post(`http://localhost:8080/api/projects/`, data, {headers}).then(response => {
             let new_project = response.data
-            const users = this.state.users.filter((user) => user.id === new_project.user) [0]
-            new_project.users = users
+            const user = this.state.user.filter((user) => user.id === new_project.user) [0]
+            new_project.user = user
             this.setState({projects: [...this.state.projects, new_project]})
         }).catch(error => console.log(error))
     }
@@ -167,8 +167,8 @@ class App extends React.Component {
                                                              deleteProject={(id) => this.deleteProject(id)}/>}/>
                         <Route exact path='/projects/create'
                                component={() => <ProjectForm
-                                   users={this.state.users} createProject={(name, repo, users) =>
-                                        this.createProject(name, repo, users)}/>}/>
+                                   users={this.state.users} createProject={(name, repo, user) =>
+                                        this.createProject(name, repo, user)}/>}/>
                         <Route exact path='/notes/create'
                                component={() => <NoteForm projects={this.state.projects} users={this.state.users}
                                    createNote={(project, title, text, user) =>
