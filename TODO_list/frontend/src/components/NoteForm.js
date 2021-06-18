@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from "axios";
 
 class NoteForm extends React.Component {
     constructor(props) {
@@ -7,7 +8,7 @@ class NoteForm extends React.Component {
             project: props.projects[0].id,
             title: '',
             text: '',
-            user: props.users[0].id
+            user: props.users[0].id,
         }
     }
 

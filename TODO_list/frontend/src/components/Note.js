@@ -3,7 +3,7 @@ import ActiveImage from './images/true.png'
 import NotActiveImage from './images/false.png'
 import {Link} from "react-router-dom";
 
-const NoteItem = ({note, editNote, deleteNote}) => {
+const NoteItem = ({note, deleteNote}) => {
     return (
         <tr className='info'>
             <td>{note.is_active ? <img src={ActiveImage} width={40} height={40}/> :
