@@ -15,7 +15,7 @@ class ProjectForm extends React.Component {
     }
 
     handleSubmit(event) {
-        this.props.createProject(this.state.name, this.state.repo, this.state.user)
+        this.props.createProject(this.state.name, this.state.repo, this.state.users)
         event.preventDefault()
     }
 
@@ -34,9 +34,9 @@ class ProjectForm extends React.Component {
                 </div>
                 <div>
                     <label for='users'>Users</label>
-                    <select multiple className='select' type='select' name='user' value={this.state.user}
-                            onChange={(event) => this.handleChange(event)}>{this.props.users.map((user) =>
-                        <option value={user.id}>{user.username}</option>)}
+                    <select multiple className='select' type='select' name='users' value={this.state.users}
+                            onChange={(event) => this.handleChange(event)}>{this.props.users.map((users) =>
+                        <option value={users.id}>{users.username}</option>)}
                     </select>
                 </div>
                 <div>

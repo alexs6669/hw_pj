@@ -66,15 +66,19 @@ class App extends React.Component {
         return headers
     }
 
-    createProject(name, repo, user) {
+    createProject(name, repo, users) {
         let headers = this.get_headers()
-        const data = {name: name, repo: repo, user: user}
+        const data = {name: name, repo: repo, users: users}
         axios.post(`http://localhost:8080/api/projects/`, data, {headers}).then(response => {
             let new_project = response.data
-            const user = this.state.user.filter((user) => user.id === new_project.user) [0]
-            new_project.user = user
+            const users = this.state.users.filter((user) => user.id === new_project.users)[0]
+            new_project.users = users
             this.setState({projects: [...this.state.projects, new_project]})
         }).catch(error => console.log(error))
+    }
+
+    editProject() {
+
     }
 
     deleteProject(id) {
@@ -89,12 +93,16 @@ class App extends React.Component {
         const data = {project: project, title: title, text: text, user: user}
         axios.post(`http://localhost:8080/api/notes/`, data, {headers}).then(response => {
             let new_note = response.data
-            const project = this.state.projects.filter((project) => project.id === new_note.project) [0]
-            const user = this.state.users.filter((user) => user.id === new_note.user) [0]
+            const project = this.state.projects.filter((project) => project.id === new_note.project)[0]
+            const user = this.state.users.filter((user) => user.id === new_note.user)[0]
             new_note.project = project
             new_note.user = user
             this.setState({notes: [...this.state.notes, new_note]})
         }).catch(error => console.log(error))
+    }
+
+    editNote() {
+
     }
 
     deleteNote(id) {
