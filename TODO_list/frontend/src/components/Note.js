@@ -11,7 +11,7 @@ const NoteItem = ({note, deleteNote}) => {
             <td>{note.project}</td>
             <td>{note.title}</td>
             <td>{note.user}</td>
-            <td>{note.created.toString()}</td>
+            <td>{note.created}</td>
             <td>{note.updated}</td>
             <td>
                 <button onClick={() => deleteNote(note.id)} type='submit'>Delete</button>

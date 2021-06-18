@@ -91,7 +91,7 @@ class App extends React.Component {
     createNote(project, title, text, user) {
         let headers = this.get_headers()
         const data = {project: project, title: title, text: text, user: user}
-        axios.post(`http://localhost:8080/api/notes/`, data, {headers}).then(response => {
+        axios.post('http://localhost:8080/api/notes/', data, {headers}).then(response => {
             let new_note = response.data
             const project = this.state.projects.filter((project) => project.id === new_note.project)[0]
             const user = this.state.users.filter((user) => user.id === new_note.user)[0]
@@ -108,7 +108,7 @@ class App extends React.Component {
     deleteNote(id) {
         let headers = this.get_headers()
         axios.delete(`http://localhost:8080/api/notes/${id}/`, {headers}).then(response => {
-            this.setState({notes: this.state.notes.filter((note) => note.id !== id)})
+            this.setState({notes: this.state.notes.filter((note) => note.id)})
         }).catch(error => console.log(error))
     }
 
