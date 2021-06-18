@@ -6,7 +6,7 @@ class ProjectForm extends React.Component {
         this.state = {
             name: '',
             repo: '',
-            users: props.users[0].id
+            users: []
         }
     }
 

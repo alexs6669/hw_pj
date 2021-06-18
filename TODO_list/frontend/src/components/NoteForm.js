@@ -5,10 +5,10 @@ class NoteForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            project: props.projects[0].id,
+            project: [],
             title: '',
             text: '',
-            user: props.users[0].id,
+            user: [],
         }
     }
 
