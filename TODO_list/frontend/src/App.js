@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import './App.css';
-import {BrowserRouter, Route, Redirect, Switch, Link} from 'react-router-dom';
+import {BrowserRouter, Link, Redirect, Route, Switch} from 'react-router-dom';
 import UserList from "./components/User";
 import ProjectList from "./components/Project";
 import NoteList from "./components/Note";
@@ -72,11 +72,9 @@ class App extends React.Component {
         axios.post(`http://localhost:8080/api/projects/`, data, {headers}).this(response => {
             let new_project = response.data
             this.setState((prevState => {
-                const users = prevState.users.filter((user) => user.id === new_project.users)[0]
-                new_project.users = users
+                new_project.users = prevState.users.filter((users) => users.id === new_project.props.users[0].id)
                 return {projects: [...this.state.projects, new_project]}
-            }))
-        }).catch(error => console.log(error))
+            }))}).catch(error => console.log(error))
     }
 
     editProject() {
@@ -95,12 +93,11 @@ class App extends React.Component {
         const data = {project: project, title: title, text: text, user: user}
         axios.post('http://localhost:8080/api/notes/', data, {headers}).then(response => {
             let new_note = response.data
-            const project = this.state.projects.filter((project) => project.id === new_note.project)[0]
-            const user = this.state.users.filter((user) => user.id === new_note.user)[0]
-            new_note.project = project
-            new_note.user = user
-            this.setState({notes: [...this.state.notes, new_note]})
-        }).catch(error => console.log(error))
+            this.setState((prevState => {
+                new_note.project = prevState.project.filter((project) => project.id === new_note.props.projects[0].id)
+                new_note.user = prevState.user.filter((user) => user.id === new_note.props.users[0].id)
+                return {notes: [...this.state.notes, new_note]}
+            }))}).catch(error => console.log(error))
     }
 
     editNote() {
