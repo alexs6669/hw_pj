@@ -108,7 +108,12 @@ class App extends React.Component {
     deleteNote(id) {
         let headers = this.get_headers()
         axios.delete(`http://localhost:8080/api/notes/${id}/`, {headers}).then(response => {
-            this.setState({notes: this.state.notes.filter((note) => note.id)})
+            this.setState({notes: this.state.notes.map(note => {
+                if(note.id === id) {
+                    note.is_active = !note.is_active
+                }
+                return note
+                })})
         }).catch(error => console.log(error))
     }
 
