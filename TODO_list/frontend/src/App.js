@@ -69,11 +69,13 @@ class App extends React.Component {
     createProject(name, repo, users) {
         let headers = this.get_headers()
         const data = {name: name, repo: repo, users: users}
-        axios.post(`http://localhost:8080/api/projects/`, data, {headers}).then(response => {
+        axios.post(`http://localhost:8080/api/projects/`, data, {headers}).this(response => {
             let new_project = response.data
-            const users = this.state.users.filter((user) => user.id === new_project.users)[0]
-            new_project.users = users
-            this.setState({projects: [...this.state.projects, new_project]})
+            this.setState((prevState => {
+                const users = prevState.users.filter((user) => user.id === new_project.users)[0]
+                new_project.users = users
+                return {projects: [...this.state.projects, new_project]}
+            }))
         }).catch(error => console.log(error))
     }
 
@@ -108,12 +110,14 @@ class App extends React.Component {
     deleteNote(id) {
         let headers = this.get_headers()
         axios.delete(`http://localhost:8080/api/notes/${id}/`, {headers}).then(response => {
-            this.setState({notes: this.state.notes.map(note => {
-                if(note.id === id) {
-                    note.is_active = !note.is_active
-                }
-                return note
-                })})
+            this.setState({
+                notes: this.state.notes.map(note => {
+                    if (note.id === id) {
+                        note.is_active = !note.is_active
+                    }
+                    return note
+                })
+            })
         }).catch(error => console.log(error))
     }
 
@@ -154,7 +158,8 @@ class App extends React.Component {
                         <ul className='menu-ul'>
                             <li className='menu-li'>
                                 {this.is_authenticated() ?
-                                    <Link className='menu-link' onClick={() => this.logout()}>Logout</Link> :
+                                    <button style={{width: `80px`}} className='button' onClick={() => this.logout()}
+                                            type='submit'>Logout</button> :
                                     <Link className='menu-link' to='/login'>Login</Link>}
                             </li>
                         </ul>
@@ -180,12 +185,13 @@ class App extends React.Component {
                                                              deleteProject={(id) => this.deleteProject(id)}/>}/>
                         <Route exact path='/projects/create'
                                component={() => <ProjectForm
-                                   users={this.state.users} createProject={(name, repo, user) =>
-                                        this.createProject(name, repo, user)}/>}/>
+                                   createProject={(name, repo, user) => this.createProject(name, repo, user)}
+                                   users={this.state.users}/>}/>
                         <Route exact path='/notes/create'
-                               component={() => <NoteForm projects={this.state.projects} users={this.state.users}
-                                   createNote={(project, title, text, user) =>
-                                       this.createNote(project, title, text, user)}/>}/>
+                               component={() => <NoteForm
+                                   createNote={(project, title, text, user) => this.createNote(project, title, text, user)}
+                                   projects={this.state.projects}
+                                   users={this.state.users}/>}/>
                         <Route exact path='/notes'
                                component={() => <NoteList notes={this.state.notes}
                                                           editNote={(id) => this.editNote(id)}

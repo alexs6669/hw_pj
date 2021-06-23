@@ -182,9 +182,6 @@
     text-align: center;
 }
 
-.menu {
-
-}
 
 .menu-ul {
     list-style-type: none;
@@ -197,7 +194,6 @@
 .menu-li {
     float: left;
 }
-
 
 .menu-link {
     display: block;
@@ -216,10 +212,6 @@
     width: 345px;
     height: 40px;
     border-radius: 7px;
-}
-
-.link {
-
 }
 
 

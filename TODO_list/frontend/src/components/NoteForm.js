@@ -25,25 +25,25 @@ class NoteForm extends React.Component {
         return (
             <form className='form' onSubmit={(event) => this.handleSubmit(event)}>
                 <div>
-                    <label for='project'>Project</label>
-                    <select className='select' type='select' name='project' value={this.state.project}
+                    <label htmlFor='project'>Project</label>
+                    <select className='select' name='project' value={this.state.project}
                             onChange={(event) => this.handleChange(event)}>{this.props.projects.map((project) =>
                         <option value={project.id}>{project.name}</option>)}
                     </select>
                 </div>
                 <div>
-                    <label for='title'>Title</label>
+                    <label htmlFor='title'>Title</label>
                     <input type='text' name='title' value={this.state.title}
                            onChange={(event) => this.handleChange(event)}/>
                 </div>
                 <div>
-                    <label for='text'>Text</label>
+                    <label htmlFor='text'>Text</label>
                     <textarea className='form-textarea' title='text' name='text' value={this.state.text}
                               onChange={(event) => this.handleChange(event)}/>
                 </div>
                 <div>
-                    <label for='user'>User</label>
-                    <select className='select' type='select' name='user' value={this.state.user}
+                    <label htmlFor='user'>User</label>
+                    <select className='select' name='user' value={this.state.user}
                             onChange={(event) => this.handleChange(event)}>{this.props.users.map((user) =>
                         <option value={user.id}>{user.username}</option>)}
                     </select>
