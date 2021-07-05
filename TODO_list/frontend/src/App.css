@@ -36,11 +36,11 @@
     text-align: center;
 }
 
-.login {
+.form {
     display: flex;
     flex-direction: column;
-    width: 220px;
-    height: 155px;
+    width: 330px;
+    margin-bottom: 20px;
 
     -webkit-animation: login 1s ease-in-out;
     -moz-animation: login 1s ease-in-out;
@@ -49,15 +49,18 @@
     animation: login 1s ease-in-out;
 }
 
-.login label {
-    display: none;
+.form label {
+    display: flex;
+    justify-content: flex-start;
+    font: message-box;
+    margin-top: 10px;
 }
 
 .placeholder {
     color: #444;
 }
 
-.login input[type='text'], .login input[type='password'] {
+.form input[type='text'], .form input[type='password'] {
     width: 100%;
     height: 40px;
     margin-top: 7px;
@@ -89,20 +92,20 @@
     transition: all .1s ease-in-out;
 }
 
-.login input[type='text']:focus, .login input[type='password']:focus {
+.form input[type='text']:focus, .form input[type='password']:focus {
     -webkit-box-shadow: inset 0px 2px 0px #a7a7a7;
     box-shadow: inset 0px 2px 0px #a7a7a7;
 }
 
-.login input:first-child {
+.form input:first-child {
     margin-top: 0px;
 }
 
-.login input[type='submit'] {
-    width: 100%;
+.form input[type='submit'], button[type='submit'] {
+    width: 80%;
     height: 50px;
     margin-top: 7px;
-    margin-left: 12px;
+    margin-left: 45px;
     color: #fff;
     font-size: 18px;
     font-weight: bold;
@@ -134,7 +137,7 @@
     transition: all .1s ease-in-out;
 }
 
-.login input[type='submit']:hover {
+.form input[type='submit']:hover, button[type='submit']:hover {
     background-color: #5f73e9;
     background-image: -webkit-linear-gradient(bottom, #5f73e9 0%, #859bef 100%);
     background-image: -moz-linear-gradient(bottom, #5f73e9 0%, #859bef 100%);
@@ -147,7 +150,7 @@
     margin-top: 10px;
 }
 
-.login input[type='submit']:active {
+.form input[type='submit']:active, button[type='submit']:active {
     background-color: #7588e1;
     background-image: -webkit-linear-gradient(bottom, #7588e1 0%, #7184df 100%);
     background-image: -moz-linear-gradient(bottom, #7588e1 0%, #7184df 100%);
@@ -159,9 +162,19 @@
     box-shadow: inset 0px 1px 0px #93a9e9;
 }
 
+.submit {
+    margin-top: 10px;
+}
+
+.form-textarea {
+    height: 150px;
+    width: 350px;
+    border-radius: 7px;
+}
+
 .table {
     display: table;
-    text-indent: 50px;
+    text-indent: 15px;
 }
 
 .info {
@@ -169,9 +182,6 @@
     text-align: center;
 }
 
-.menu {
-
-}
 
 .menu-ul {
     list-style-type: none;
@@ -185,7 +195,6 @@
     float: left;
 }
 
-
 .menu-link {
     display: block;
     color: white;
@@ -197,6 +206,12 @@
 
 .menu-link:hover {
     background-color: #61dafb;
+}
+
+.select {
+    width: 345px;
+    height: 40px;
+    border-radius: 7px;
 }
 
 

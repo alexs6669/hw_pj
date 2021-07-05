@@ -1,10 +1,9 @@
 from rest_framework.generics import *
 from rest_framework.renderers import JSONRenderer
-from rest_framework.response import Response
 from rest_framework.pagination import LimitOffsetPagination
+from rest_framework.response import Response
 from django_filters import rest_framework as filters
 from rest_framework.viewsets import ModelViewSet
-from pjapp.models import Project, TODO
 from .serializers import *
 from rest_framework.permissions import IsAuthenticated, AllowAny
 
@@ -36,80 +35,21 @@ class NoteFilterByProject(filters.FilterSet):
 class ProjectListViewSet(ModelViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectModelSerializer
+    filterset_class = ProjectFilterByName
     permission_classes = [IsAuthenticated]
+
+    # pagination_class = ProjectLimitOffsetPagination
 
 
 class NoteListViewSet(ModelViewSet):
     queryset = TODO.objects.all()
     serializer_class = TODOModelSerializer
-    permission_classes = [AllowAny]
-
-
-class ProjectListView(ListAPIView):
-    # renderer_classes = [JSONRenderer]
-    # pagination_class = ProjectLimitOffsetPagination
-    queryset = Project.objects.all()
-    serializer_class = ProjectModelSerializer
-    filterset_class = ProjectFilterByName
-
-
-class ProjectCreateView(CreateAPIView):
-    # renderer_classes = [JSONRenderer]
-    queryset = Project.objects.all()
-    serializer_class = ProjectModelSerializer
-
-
-class ProjectUpdateView(UpdateAPIView):
-    # renderer_classes = [JSONRenderer]
-    queryset = Project.objects.all()
-    serializer_class = ProjectModelSerializer
-
-
-class ProjectDetailView(RetrieveAPIView):
-    # renderer_classes = [JSONRenderer]
-    queryset = Project.objects.all()
-    serializer_class = ProjectModelSerializer
-
-
-class ProjectDeleteView(DestroyAPIView):
-    # renderer_classes = [JSONRenderer]
-    queryset = Project.objects.all()
-    serializer_class = ProjectModelSerializer
-
-
-class NoteListView(ListAPIView):
-    # renderer_classes = [JSONRenderer]
-    # pagination_class = NoteLimitOffsetPagination
-    queryset = TODO.objects.all()
-    serializer_class = TODOModelSerializer
     filterset_class = NoteFilterByProject
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
+    # pagination_class = NoteLimitOffsetPagination
 
-class NoteCreateView(CreateAPIView):
-    # renderer_classes = [JSONRenderer]
-    queryset = TODO.objects.all()
-    serializer_class = TODOModelSerializer
-
-
-class NoteUpdateView(UpdateAPIView):
-    # renderer_classes = [JSONRenderer]
-    queryset = TODO.objects.all()
-    serializer_class = TODOModelSerializer
-
-
-class NoteDetailView(RetrieveAPIView):
-    # renderer_classes = [JSONRenderer]
-    queryset = TODO.objects.all()
-    serializer_class = TODOModelSerializer
-
-
-class NoteDeleteView(DestroyAPIView):
-    # renderer_classes = [JSONRenderer]
-    queryset = TODO.objects.all()
-    serializer_class = TODOModelSerializer
-
-    def delete(self, request, *args, **kwargs):
+    def destroy(self, request, *args, **kwargs):
         note = self.get_object()
         serializer = TODOModelSerializer(note)
         if note.is_active:

@@ -1,12 +1,14 @@
 import React from 'react';
 import axios from 'axios';
 import './App.css';
-import {BrowserRouter, Route, Redirect, Switch, Link} from 'react-router-dom';
+import {BrowserRouter, Link, Redirect, Route, Switch} from 'react-router-dom';
 import UserList from "./components/User";
 import ProjectList from "./components/Project";
 import NoteList from "./components/Note";
 import LoginForm from './components/Auth.js'
 import Cookies from 'universal-cookie'
+import NoteForm from "./components/NoteForm";
+import ProjectForm from "./components/ProjectForm";
 
 const NotFound404 = ({location}) => {
     return (
@@ -28,7 +30,7 @@ class App extends React.Component {
     }
 
     set_token(token) {
-        const cookies = new Cookies()
+        let cookies = new Cookies()
         cookies.set('token', token)
         this.setState({'token': token}, () => this.load_data())
     }
@@ -43,7 +45,7 @@ class App extends React.Component {
     }
 
     get_token_from_storage() {
-        const cookies = new Cookies()
+        let cookies = new Cookies()
         const token = cookies.get('token')
         this.setState({'token': token}, () => this.load_data())
     }
@@ -55,13 +57,65 @@ class App extends React.Component {
     }
 
     get_headers() {
-        let headers = {
+        const headers = {
             'Content-type': 'application/json',
         }
         if (this.is_authenticated()) {
             headers['Authorization'] = 'Token ' + this.state.token
         }
         return headers
+    }
+
+    createProject(name, repo, users) {
+        let headers = this.get_headers()
+        const data = {name: name, repo: repo, users: users}
+        axios.post(`http://localhost:8080/api/projects/`, data, {headers}).this(response => {
+            let new_project = response.data
+            this.setState((prevState => {
+                new_project.users = prevState.users.filter((users) => users.id === new_project.props.users[0].id)
+                return {projects: [...this.state.projects, new_project]}
+            }))}).catch(error => console.log(error))
+    }
+
+    editProject() {
+
+    }
+
+    deleteProject(id) {
+        let headers = this.get_headers()
+        axios.delete(`http://localhost:8080/api/projects/${id}/`, {headers}).then(response => {
+            this.setState({projects: this.state.projects.filter((project) => project.id !== id)})
+        }).catch(error => console.log(error))
+    }
+
+    createNote(project, title, text, user) {
+        let headers = this.get_headers()
+        const data = {project: project, title: title, text: text, user: user}
+        axios.post('http://localhost:8080/api/notes/', data, {headers}).then(response => {
+            let new_note = response.data
+            this.setState((prevState => {
+                new_note.project = prevState.project.filter((project) => project.id === new_note.props.projects[0].id)
+                new_note.user = prevState.user.filter((user) => user.id === new_note.props.users[0].id)
+                return {notes: [...this.state.notes, new_note]}
+            }))}).catch(error => console.log(error))
+    }
+
+    editNote() {
+
+    }
+
+    deleteNote(id) {
+        let headers = this.get_headers()
+        axios.delete(`http://localhost:8080/api/notes/${id}/`, {headers}).then(response => {
+            this.setState({
+                notes: this.state.notes.map(note => {
+                    if (note.id === id) {
+                        note.is_active = !note.is_active
+                    }
+                    return note
+                })
+            })
+        }).catch(error => console.log(error))
     }
 
     load_data() {
@@ -101,7 +155,8 @@ class App extends React.Component {
                         <ul className='menu-ul'>
                             <li className='menu-li'>
                                 {this.is_authenticated() ?
-                                    <Link className='menu-link' onClick={() => this.logout()}>Logout</Link> :
+                                    <button style={{width: `80px`}} className='button' onClick={() => this.logout()}
+                                            type='submit'>Logout</button> :
                                     <Link className='menu-link' to='/login'>Login</Link>}
                             </li>
                         </ul>
@@ -122,8 +177,22 @@ class App extends React.Component {
                     <Switch>
                         <Route exact path='/users' component={() => <UserList users={this.state.users}/>}/>
                         <Route exact path='/projects'
-                               component={() => <ProjectList projects={this.state.projects}/>}/>
-                        <Route exact path='/notes' component={() => <NoteList notes={this.state.notes}/>}/>
+                               component={() => <ProjectList projects={this.state.projects}
+                                                             editProject={(id) => this.editProject(id)}
+                                                             deleteProject={(id) => this.deleteProject(id)}/>}/>
+                        <Route exact path='/projects/create'
+                               component={() => <ProjectForm
+                                   createProject={(name, repo, user) => this.createProject(name, repo, user)}
+                                   users={this.state.users}/>}/>
+                        <Route exact path='/notes/create'
+                               component={() => <NoteForm
+                                   createNote={(project, title, text, user) => this.createNote(project, title, text, user)}
+                                   projects={this.state.projects}
+                                   users={this.state.users}/>}/>
+                        <Route exact path='/notes'
+                               component={() => <NoteList notes={this.state.notes}
+                                                          editNote={(id) => this.editNote(id)}
+                                                          deleteNote={(id) => this.deleteNote(id)}/>}/>
                         <Route exact path='/login' component={() => <LoginForm
                             get_token={(username, password) => this.get_token(username, password)}/>}/>
                         <Redirect from='/' to='/login'/>
